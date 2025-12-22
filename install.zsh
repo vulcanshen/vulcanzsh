@@ -53,7 +53,7 @@ mkdir -p "$ZSH_CONF_DIR"
 # 2. Download files
 print_info "Downloading configuration files from GitHub..."
 curl -fsSL "${BASE_URL}/zsh/bindkey.zsh" -o "${ZSH_CONF_DIR}/bindkey.zsh" || { print_error "Failed to download bindkey.zsh"; exit 1; }
-curl -fsSL "${BASE_URL}/zsh/function.zsh" -o "${ZSH_CONF_DIR}/function.zsh" || { print_error "Failed to download function.zsh"; exit 1; }
+curl -fsSL "${BASE_URL}/zsh/v.zsh" -o "${ZSH_CONF_DIR}/v.zsh" || { print_error "Failed to download v.zsh"; exit 1; }
 
 # 3. Inject into ~/.zshrc
 MARKER_START="# --- vulcanzsh Config Start ---"
