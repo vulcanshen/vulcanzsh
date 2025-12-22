@@ -20,7 +20,7 @@ Run the following command in your terminal to install. This will create a direct
 只需在終端機執行以下指令即可完成安裝。此腳本會建立 `~/.config/vulcanzsh` 目錄，並將載入邏輯注入到您的 `~/.zshrc`。
 
 ```zsh
-curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/main/install.zsh | zsh
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/install.zsh | zsh
 ```
 
 
