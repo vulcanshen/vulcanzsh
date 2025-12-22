@@ -116,3 +116,27 @@ return {
 
 1. Remove the config directory: `rm -rf ~/.config/vulcanzsh`
 2. Open `~/.zshrc` and delete the lines between the #` --- vulcanzsh Config --- markers.`
+
+
+## 🛠️ Neovim / LazyVim Setup (Optional)
+
+I use [LazyVim](https://www.lazyvim.org/) as my editor. To mirror my experience, follow these steps:
+
+### 1. Enable Indent Extra
+My indentation config depends on the `ui.indent` extra.
+* Open Neovim and run `:LazyExtras`
+* Find and enable **`ui.indent-blankline`**
+
+### 2. Install Plugin Configs
+Run these commands to download my curated settings for **blink.cmp** (no-newline completion) and **indent-blankline** (rainbow indent):
+
+
+```zsh
+# Download blink.cmp config
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/blink.lua -o ~/.config/nvim/lua/plugins/blink.lua
+```
+
+```zsh
+# Download indent-blankline config
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/indent-blankline.lua -o ~/.config/nvim/lua/plugins/indent-blankline.lua
+```
