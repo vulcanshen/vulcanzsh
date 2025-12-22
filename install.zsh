@@ -73,10 +73,6 @@ fi
 
 print_success "Installation complete!"
 
-echo -e "\n\e[33m[!] Tip: If 'Ctrl + ;' does not work in your terminal:\e[0m"
-echo "    1. Press 'Ctrl + v' followed by 'Ctrl + ;' to see your terminal's code."
-echo "    2. If it differs from the current bindings, add it to ~/.config/vulcanzsh/bindkey.zsh"
-
 if [[ -t 0 ]]; then
     print_info "Restarting zsh to apply changes..."
     exec zsh -l
