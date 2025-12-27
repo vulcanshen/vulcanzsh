@@ -144,6 +144,10 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 
 ## 🔍 Advanced Functions / 進階功能
 
+> [!TIP] Note: These functions are modular. If you don't need them, simply remove the corresponding files (*.zsh, *.toml) from the config directory.
+
+> [!TIP] 備註：這些功能為模組化設計。如果不需要，只需從設定目錄中移除相對應的 .zsh 檔案即可。
+
 ### spfz (spf + fzf)
 
 A powerful wrapper that combines fzf (fuzzy finder) with spf (superfile). It allows you to search for any file or directory and instantly open the correct context in spf.
@@ -177,6 +181,8 @@ spfz() {
 }
 ```
 
+---
+
 ### llv (Tree View List)
 
 A optimized shortcut to visualize your directory structure. It uses the ${1:-1} syntax to handle optional arguments gracefully.
@@ -195,4 +201,31 @@ llv() {
   local level="${1:-1}"
   eza --tree --level="$level" --icons --group-directories-first --classify=always
 }
+```
+
+---
+
+### Starship Prompt Customization
+
+This repository includes a custom **Starship** configuration that provides a minimal, fast, and informative prompt. It is optimized for the **Catppuccin Mocha** palette and features a clean layout with Git status and directory tracking.
+
+**Starship** 是一個極快且可高度自定義的命令提示字元。本倉庫提供的設定檔優化了路徑顯示邏輯，並採用 **Catppuccin Mocha** 配色，確保美觀與實用兼具。
+
+#### ⚠️ Prerequisites / 前置條件
+
+- [Starship](https://starship.rs/) (`brew install starship`)
+
+#### 🛠️ Configuration / 設定方式
+
+Run the following command to backup your current config (if any) and download the new one:
+
+```zsh
+# Create directory if it doesn't exist
+mkdir -p ~/.config
+
+# Backup existing config if it exists
+[ -f ~/.config/starship.toml ] && mv ~/.config/starship.toml ~/.config/starship.toml.bak
+
+# Download the new starship config
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/starship/starship.toml -o ~/.config/starship.toml
 ```
