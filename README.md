@@ -127,18 +127,31 @@ My indentation config depends on the `ui.indent` extra.
 * Open Neovim and run `:LazyExtras`
 * Find and enable **`ui.indent-blankline`**
 
-### 2. Install Plugin Configs
+### 2. Plugins
 Run these commands to download my curated settings for **blink.cmp** (no-newline completion) and **indent-blankline** (rainbow indent):
 
 
 ```zsh
 # Download blink.cmp config
-curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/blink.lua -o ~/.config/nvim/lua/plugins/blink.lua
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/plugins/blink.lua -o ~/.config/nvim/lua/plugins/blink.lua
 ```
 
 ```zsh
 # Download indent-blankline config
-curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/indent-blankline.lua -o ~/.config/nvim/lua/plugins/indent-blankline.lua
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/plugins/indent-blankline.lua -o ~/.config/nvim/lua/plugins/indent-blankline.lua
+```
+
+### Keymaps
+
+These keybindings provide a consistent "Zoom" experience using Ctrl + f, allowing you to toggle full-screen focus on a single window in both Normal and Terminal modes.
+
+> [!CAUTION] Warning: Running the append command multiple times will add duplicate entries to your keymaps.lua. Please check your file after running.
+
+> [!CAUTION] 注意：重複執行追加指令會在 keymaps.lua 中產生重複的設定，請在執行後檢查您的檔案。
+
+```zsh
+# Append Windows Zoom keymap config
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/config/keymaps.lua >> ~/.config/nvim/lua/config/keymaps.lua
 ```
 
 
