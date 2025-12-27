@@ -156,7 +156,8 @@ Ensure you have the following installed:
 2. [spf (Super File)](https://superfile.dev/)
 
 #### 🛠️ 程式碼實作
-您可以將以下程式碼加入您的 `.zshrc` 或設定檔中：
+
+Add this to your configuration to enable spfz:
 
 ```zsh
 spfz() {
