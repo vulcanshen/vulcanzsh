@@ -155,7 +155,7 @@ Ensure you have the following installed:
 1. [fzf](https://github.com/junegunn/fzf)
 2. [spf (Super File)](https://superfile.dev/)
 
-#### 🛠️ 程式碼實作
+#### 🛠️ Implementation / 程式碼實作
 
 Add this to your configuration to enable spfz:
 
