@@ -144,9 +144,9 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 
 ## 🔍 Advanced Functions / 進階功能
 
-> [!TIP] Note: These functions are modular. If you don't need them, simply remove the corresponding files (*.zsh, *.toml) from the config directory.
+[!TIP] Note: These functions are modular. If you don't need them, simply remove the corresponding files (*.zsh, *.toml) from the config directory.
 
-> [!TIP] 備註：這些功能為模組化設計。如果不需要，只需從設定目錄中移除相對應的檔案即可。
+[!TIP] 備註：這些功能為模組化設計。如果不需要，只需從設定目錄中移除相對應的檔案即可。
 
 ### spfz (spf + fzf)
 
