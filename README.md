@@ -140,3 +140,38 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 # Download indent-blankline config
 curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/indent-blankline.lua -o ~/.config/nvim/lua/plugins/indent-blankline.lua
 ```
+
+
+## 🔍 Advanced Functions / 進階功能
+
+### spfz (spf + fzf)
+
+A powerful wrapper that combines fzf (fuzzy finder) with spf (superfile). It allows you to search for any file or directory and instantly open the correct context in spf.
+
+#### ⚠️ Prerequisites (Required) / 前置條件
+
+Ensure you have the following installed:
+
+1. [fzf](https://github.com/junegunn/fzf)
+2. [spf (Super File)](https://superfile.dev/)
+
+#### 🛠️ 程式碼實作
+您可以將以下程式碼加入您的 `.zshrc` 或設定檔中：
+
+```zsh
+spfz() {
+  local target
+  # Search with preview (ls for directories, cat for files)
+  target=$(fzf --preview '[[ -d {} ]] && ls -F {} || cat {}')
+
+  if [ -n "$target" ]; then
+    if [ -d "$target" ]; then
+      # If directory, open directly
+      spf "$target"
+    else
+      # If file, open its parent directory
+      spf "$(dirname "$target")"
+    fi
+  fi
+}
+```
