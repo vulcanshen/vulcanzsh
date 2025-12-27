@@ -176,3 +176,23 @@ spfz() {
   fi
 }
 ```
+
+### llv (Tree View List)
+
+A optimized shortcut to visualize your directory structure. It uses the ${1:-1} syntax to handle optional arguments gracefully.
+
+#### ⚠️ Prerequisites (Required) / 前置條件
+
+Ensure you have the following installed:
+
+1. [eza](https://github.com/eza-community/eza)
+
+#### 🛠️ Implementation / 程式碼實作
+
+```zsh
+# List with tree depth using eza (Optimized version)
+llv() {
+  local level="${1:-1}"
+  eza --tree --level="$level" --icons --group-directories-first --classify=always
+}
+```
