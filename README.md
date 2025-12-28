@@ -7,15 +7,12 @@
 | |/ / /_/ / / /__/ /_/ / / / / / /_(__  ) / / /
 |___/\__,_/_/\___/\__,_/_/ /_/ /___/____/_/ /_/ 
                                                 
-                Personal Zsh Settings
+                個人 Zsh 設定
 ```
 
-> 🛠️ Personal Zsh keybindings, functions, and LazyVim optimizations.  
-> 專為個人開發習慣設計的 Zsh 與 Neovim 體驗優化。
+> 🛠️ 專為個人開發習慣設計的 Zsh 快捷鍵、函式與 LazyVim 優化配置。
 
-## 🚀 Quick Start / 快速安裝
-
-Run the following command in your terminal to install. This will create a directory at `~/.config/vulcanzsh` and inject a loading script into your `~/.zshrc`.
+## 🚀 快速安裝
 
 只需在終端機執行以下指令即可完成安裝。此腳本會建立 `~/.config/vulcanzsh` 目錄，並將載入邏輯注入到您的 `~/.zshrc`。
 
@@ -24,30 +21,30 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 ```
 
 
-## ⚠️ Prerequisites (Required)
+## ⚠️ 必要前置條件
 
-Before installing, ensure you have the following environment setup
+安裝前請確保您已完成以下環境設定
 
-The installation script will **abort** if these are not found:
+若未找到這些條件，安裝腳本將會**中止**：
 
-1. **zsh** & **Oh My Zsh** `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
-2. **zsh-autosuggestions** plugin  
+1. **zsh** 與 **Oh My Zsh** `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+2. **zsh-autosuggestions** 插件  
    `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
-   *Note: Remember to add `zsh-autosuggestions` to your `plugins` list in `~/.zshrc`.*
+   *注意：記得在 `~/.zshrc` 的 `plugins` 清單中加入 `zsh-autosuggestions`。*
 
 
-## ✨ Features / 功能亮點
+## ✨ 功能亮點
 
-1. Zsh Keybindings & Functions
-  - Vim-like History Search: Use `Ctrl + k / Ctrl + j` to search through history.
-  - Fast Navigation: `Ctrl + h / Ctrl + l` for word-level jumping.
-  - Accept autosuggestions: `Ctrl + o`
-  - The `v()` Function:
-    - v: Open nvim . in current directory.
-    - v <path>: Smart open. Auto-creates directories/files if they don't exist.
-2. Neovim (LazyVim) Optimizations
+1. Zsh 快捷鍵與函式
+  - Vim 風格歷史搜尋：使用 `Ctrl + k / Ctrl + j` 搜尋指令歷史。
+  - 快速導航：`Ctrl + h / Ctrl + l` 進行單字級別的跳躍。
+  - 接受自動建議：`Ctrl + o`
+  - `v()` 函式：
+    - v：在當前目錄開啟 nvim .
+    - v <路徑>：智慧開啟。若目錄或檔案不存在會自動建立。
+2. Neovim (LazyVim) 優化配置
 
-I use LazyVim. Below are the recommended configurations to be placed in `~/.config/nvim/lua/plugins/.`
+我使用 LazyVim。以下是建議放置於 `~/.config/nvim/lua/plugins/` 的配置檔。
 
 **blink.lua**
 
@@ -74,7 +71,7 @@ return {
 
 **indent-blankline.lua**
 
-Adds color to indentation guides for better visibility.
+為縮排輔助線添加顏色以提升可視性。
 
 ```lua
 return {
@@ -112,104 +109,67 @@ return {
 ```
 
 
-## 🗑 Uninstallation / 移除方式
+## 🗑 移除方式
 
-1. Remove the config directory: `rm -rf ~/.config/vulcanzsh`
-2. Open `~/.zshrc` and delete the lines between the #` --- vulcanzsh Config --- markers.`
+1. 刪除配置目錄：`rm -rf ~/.config/vulcanzsh`
+2. 開啟 `~/.zshrc` 並刪除 `--- vulcanzsh Config ---` 標記之間的所有行。
 
 
-## 🛠️ Neovim / LazyVim Setup (Optional)
+## 🛠️ Neovim / LazyVim 設定（選用）
 
-I use [LazyVim](https://www.lazyvim.org/) as my editor. To mirror my experience, follow these steps:
+我使用 [LazyVim](https://www.lazyvim.org/) 作為編輯器。若要複製我的使用體驗，請按照以下步驟操作：
 
-### 1. Enable Indent Extra
-My indentation config depends on the `ui.indent` extra.
-* Open Neovim and run `:LazyExtras`
-* Find and enable **`ui.indent-blankline`**
+### 1. 啟用 Indent Extra
+我的縮排配置依賴 `ui.indent` 擴充功能。
+* 開啟 Neovim 並執行 `:LazyExtras`
+* 找到並啟用 **`ui.indent-blankline`**
 
-### 2. Plugins
-Run these commands to download my curated settings for **blink.cmp** (no-newline completion) and **indent-blankline** (rainbow indent):
+### 2. 插件
+執行以下指令下載我精心調整的 **blink.cmp**（無換行補全）和 **indent-blankline**（彩虹縮排）設定：
 
 
 ```zsh
-# Download blink.cmp config
+# 下載 blink.cmp 配置
 curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/plugins/blink.lua -o ~/.config/nvim/lua/plugins/blink.lua
 ```
 
 ```zsh
-# Download indent-blankline config
+# 下載 indent-blankline 配置
 curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/plugins/indent-blankline.lua -o ~/.config/nvim/lua/plugins/indent-blankline.lua
 ```
 
-### Keymaps
+### 快捷鍵設定
 
-These keybindings provide a consistent "Zoom" experience using Ctrl + f, allowing you to toggle full-screen focus on a single window in both Normal and Terminal modes.
+這些快捷鍵提供一致的「縮放」體驗，使用 Ctrl + f 可在一般模式與終端模式中切換單一視窗的全螢幕聚焦。
 
-> [!CAUTION] Warning: Running the append command multiple times will add duplicate entries to your keymaps.lua. Please check your file after running.
-
-> [!CAUTION] 注意：重複執行追加指令會在 keymaps.lua 中產生重複的設定，請在執行後檢查您的檔案。
+> [!CAUTION] 警告：重複執行追加指令會在 keymaps.lua 中產生重複的設定項目，請在執行後檢查您的檔案。
 
 ```zsh
-# Append Windows Zoom keymap config
+# 追加視窗縮放快捷鍵配置
 curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/lazyvim/config/keymaps.lua >> ~/.config/nvim/lua/config/keymaps.lua
 ```
 
 
-## 🔍 Advanced Functions / 進階功能
+## 🔍 進階功能
 
-> [!TIP] Note: These functions are modular. If you don't need them, simply remove the corresponding files (*.zsh, *.toml) from the config directory.
-
-> [!TIP] 備註：這些功能為模組化設計。如果不需要，只需從設定目錄中移除相對應的檔案即可。
-
-### spfz (spf + fzf)
-
-A powerful wrapper that combines fzf (fuzzy finder) with spf (superfile). It allows you to search for any file or directory and instantly open the correct context in spf.
-
-#### ⚠️ Prerequisites (Required) / 前置條件
-
-Ensure you have the following installed:
-
-1. [fzf](https://github.com/junegunn/fzf)
-2. [spf (Super File)](https://superfile.dev/)
-
-#### 🛠️ Implementation / 程式碼實作
-
-Add this to your configuration to enable spfz:
-
-```zsh
-spfz() {
-  local target
-  # Search with preview (ls for directories, cat for files)
-  target=$(fzf --preview '[[ -d {} ]] && ls -F {} || cat {}')
-
-  if [ -n "$target" ]; then
-    if [ -d "$target" ]; then
-      # If directory, open directly
-      spf "$target"
-    else
-      # If file, open its parent directory
-      spf "$(dirname "$target")"
-    fi
-  fi
-}
-```
+> [!TIP] 備註：這些功能採用模組化設計。如果不需要，只需從配置目錄中移除對應的檔案（*.zsh、*.toml）即可。
 
 ---
 
-### llv (Tree View List)
+### llv (樹狀檢視列表)
 
-A optimized shortcut to visualize your directory structure. It uses the ${1:-1} syntax to handle optional arguments gracefully.
+一個優化的快捷指令，用於視覺化顯示您的目錄結構。使用 ${1:-1} 語法優雅地處理選用參數。
 
-#### ⚠️ Prerequisites (Required) / 前置條件
+#### ⚠️ 必要前置條件
 
-Ensure you have the following installed:
+請確保您已安裝以下工具：
 
 1. [eza](https://github.com/eza-community/eza)
 
-#### 🛠️ Implementation / 程式碼實作
+#### 🛠️ 程式碼實作
 
 ```zsh
-# List with tree depth using eza (Optimized version)
+# 使用 eza 以樹狀結構列出內容（優化版本）
 llv() {
   local level="${1:-1}"
   eza --tree --level="$level" --icons --group-directories-first --classify=always
@@ -218,27 +178,25 @@ llv() {
 
 ---
 
-### Starship Prompt Customization
+### Starship 提示字元自訂
 
-This repository includes a custom **Starship** configuration that provides a minimal, fast, and informative prompt. It is optimized for the **Catppuccin Mocha** palette and features a clean layout with Git status and directory tracking.
+本倉庫包含自訂的 **Starship** 配置，提供簡約、快速且資訊豐富的提示字元。針對 **Catppuccin Mocha** 配色進行優化，具有簡潔的佈局與 Git 狀態及目錄追蹤功能。
 
-**Starship** 是一個極快且可高度自定義的命令提示字元。本倉庫提供的設定檔優化了路徑顯示邏輯，並採用 **Catppuccin Mocha** 配色，確保美觀與實用兼具。
-
-#### ⚠️ Prerequisites / 前置條件
+#### ⚠️ 必要前置條件
 
 - [Starship](https://starship.rs/) (`brew install starship`)
 
-#### 🛠️ Configuration / 設定方式
+#### 🛠️ 配置方式
 
-Run the following command to backup your current config (if any) and download the new one:
+執行以下指令備份您目前的配置（如果有的話）並下載新配置：
 
 ```zsh
-# Create directory if it doesn't exist
+# 如果目錄不存在則建立
 mkdir -p ~/.config
 
-# Backup existing config if it exists
+# 備份現有配置（如果存在）
 [ -f ~/.config/starship.toml ] && mv ~/.config/starship.toml ~/.config/starship.toml.bak
 
-# Download the new starship config
+# 下載新的 starship 配置
 curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/starship/starship.toml -o ~/.config/starship.toml
 ```
