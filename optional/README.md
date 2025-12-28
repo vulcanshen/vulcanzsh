@@ -37,5 +37,5 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 #### 🚀 快速安裝
 
 ```zsh
-curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/tab-enhancemant.zsh -o ~/.config/vulcanzsh/tab-enhancemant.zsh
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/tab-enhancement.zsh -o ~/.config/vulcanzsh/tab-enhancemant.zsh
 ```
