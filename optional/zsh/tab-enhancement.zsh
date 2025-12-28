@@ -1,3 +1,4 @@
+
 # ------------------------------------------------------------------------------
 # 1. GLOBAL COMPLETION SETTINGS (Zsh Built-in)
 # ------------------------------------------------------------------------------
@@ -42,7 +43,7 @@ zstyle ':fzf-tab:*' continuous-trigger '/'    # Trigger next-level completion im
 zstyle ':fzf-tab:*' fzf-command fzf           # Use fzf as the backend
 
 # FZF UI Flags and Key Bindings
-zstyle ':fzf-tab:*' fzf-flags --color=16 --height=50% --reverse --inline-info --border --preview-window=right:50% \
+zstyle ':fzf-tab:*' fzf-flags --color=16 --height=50% --reverse --inline-info --border --preview-window=right:70%:wrap \
   --bind 'ctrl-u:half-page-up,ctrl-d:half-page-down' \
   --bind 'U:preview-page-up,D:preview-page-down'
 
@@ -79,13 +80,75 @@ zstyle ':fzf-tab:complete:git:*' fzf-preview '
 # 5. GENERAL FILE SYSTEM & PROCESS PREVIEWS
 # ------------------------------------------------------------------------------
 
+zstyle ':fzf-tab:complete:kill:*' fzf-preview '
+  local pid="${(Q)word}"
+  
+  if [[ "$pid" =~ ^([0-9]+) ]]; then
+    pid="${match[1]}"
+  fi
+  
+  if [[ "$pid" =~ ^[0-9]+$ ]]; then
+    echo "\033[1;33mProcess Information (PID: $pid)\033[0m"
+    ps -p "$pid" -o pid,ppid,user,%cpu,%mem,stat,start,time 2>/dev/null
+    echo ""
+    echo "\033[1;32mFull Command:\033[0m"
+    ps -p "$pid" -o args= 2>/dev/null
+    echo ""
+    echo "\033[1;35mNetwork Connections:\033[0m"
+    
+    if command -v lsof >/dev/null 2>&1; then
+      # 使用 lsof 獲取詳細網路連線資訊
+      local connections=$(lsof -Pan -p "$pid" -i 2>/dev/null | tail -n +2)
+      
+      if [ -n "$connections" ]; then
+        echo "$connections" | while read -r line; do
+          local proto=$(echo "$line" | awk "{print \$8}")
+          local addr=$(echo "$line" | awk "{print \$9}")
+          local state=$(echo "$line" | awk "{print \$10}")
+          
+          # 判斷是 LISTEN 還是 ESTABLISHED
+          if [[ "$state" == "LISTEN" ]] || [[ "$addr" == *"LISTEN"* ]]; then
+            echo "  \033[1;32m●\033[0m $proto $addr \033[1;32m[LISTEN]\033[0m"
+          elif [[ "$state" == "ESTABLISHED" ]] || [[ "$addr" == *"->"* ]]; then
+            echo "  \033[1;34m○\033[0m $proto $addr \033[1;34m[ESTABLISHED]\033[0m"
+          else
+            echo "  \033[1;33m◆\033[0m $proto $addr $state"
+          fi
+        done
+      else
+        echo "  \033[2mNo network connections\033[0m"
+      fi
+    elif command -v ss >/dev/null 2>&1; then
+      # 使用 ss（Linux）
+      local connections=$(ss -tnp 2>/dev/null | grep "pid=$pid")
+      
+      if [ -n "$connections" ]; then
+        echo "$connections" | while read -r line; do
+          local state=$(echo "$line" | awk "{print \$1}")
+          local local_addr=$(echo "$line" | awk "{print \$4}")
+          local remote_addr=$(echo "$line" | awk "{print \$5}")
+          
+          if [[ "$state" == "LISTEN" ]]; then
+            echo "  \033[1;32m●\033[0m TCP $local_addr \033[1;32m[LISTEN]\033[0m"
+          elif [[ "$state" == "ESTAB" ]]; then
+            echo "  \033[1;34m○\033[0m TCP $local_addr -> $remote_addr \033[1;34m[ESTABLISHED]\033[0m"
+          else
+            echo "  \033[1;33m◆\033[0m TCP $local_addr -> $remote_addr [$state]"
+          fi
+        done
+      else
+        echo "  \033[2mNo network connections\033[0m"
+      fi
+    else
+      echo "  \033[2m(lsof or ss not available)\033[0m"
+    fi
+  fi'
+
 zstyle ':fzf-tab:complete:*:*' fzf-preview '
   local t_word="${(Q)word% }"
   case "$group" in
     "[local directory]") 
       eza --icons=always --color=always --long "$realpath" ;;
-    "[process executables]") 
-      ps --pid="$word" -o cmd --no-headers -w -w ;;
     "[files]"|"[file]") 
       local target="$PWD/${t_word}"
       if [ -d "$target" ]; then
@@ -97,5 +160,25 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '
         echo "group:$group\nword: $word\nrealpath: $realpath"
       fi ;;
     *) 
-      echo "group:$group\nword: $word\nrealpath: $realpath" ;;
+      echo "Not implement yet"
+      echo "group:$group"
+      echo "word:$word"
+      echo "realpath:$realpath"
+      echo "desc:$desc"
+      ;;
   esac'
+
+_kill_fzf_friendly() {
+  local -a pids descriptions
+  local pid name
+  
+  # 使用 zsh 內建的字串操作：${name##*/} 取得最後一個 / 之後的內容
+  while read -r pid name; do
+    pids+=("$pid")
+    descriptions+=("${pid}::${name##*/}")
+  done < <(ps -u "$USER" -o pid=,comm= 2>/dev/null | tail -n +2 | head -n 500)
+  
+  compadd -d descriptions -a pids
+}
+
+compdef _kill_fzf_friendly kill
