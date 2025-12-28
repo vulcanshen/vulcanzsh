@@ -1,5 +1,15 @@
 # 選用功能
 
+選用功能是基於基礎功能的架構之上，所以需要基礎功能先載入才能正常運作
+
+> [NOTE!] 注意: 這部分的設定一定得在基礎功能 `--- vulcanzsh Config Start ---` 載入之後
+
+## 快速安裝
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/install.zsh | zsh
+```
+
 ## zsh
 
 ### llv (樹狀檢視列表)
@@ -15,7 +25,7 @@
 #### 🚀 快速安裝
 
 ```zsh
-curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/llv.zsh -o ~/.config/vulcanzsh/llv.zsh
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/llv.zsh -o ~/.config/vulcanzsh/optional/llv.zsh
 ```
 
 ### cli tab 強化功能
@@ -37,5 +47,5 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 #### 🚀 快速安裝
 
 ```zsh
-curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/tab-enhancement.zsh -o ~/.config/vulcanzsh/tab-enhancemant.zsh
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/tab-enhancement.zsh -o ~/.config/vulcanzsh/optional/tab-enhancemant.zsh
 ```
