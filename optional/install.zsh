@@ -24,8 +24,8 @@ else
 fi
 
 if [[ -t 0 ]]; then
-    print_info "Restarting zsh to apply changes..."
+    echo "Restarting zsh to apply changes..."
     exec zsh -l
 else
-    print_info "Please run 'source ~/.zshrc' to apply changes."
+    echo "Please run 'source ~/.zshrc' to apply changes."
 fi
