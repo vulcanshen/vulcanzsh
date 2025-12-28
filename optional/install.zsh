@@ -12,7 +12,7 @@ mkdir -p "$ZSH_CONF_DIR"
 LOAD_CMD="for f in $ZSH_CONF_DIR/*.zsh; do [ -f \"\$f\" ] && source \"\$f\"; done"
 
 curl -fsSL ${BASE_URL}/optional/zsh/llv.zsh -o ${ZSH_CONF_DIR}/llv.zsh
-curl -fsSL ${BASE_URL}/optional/zsh/tab-enhancement.zsh -o ${ZSH_CONF_DIR}/tab-enhancemant.zsh
+curl -fsSL ${BASE_URL}/optional/zsh/tab-enhancement.zsh -o ${ZSH_CONF_DIR}/tab-enhancement.zsh
 
 if ! grep -q "$MARKER_START" ~/.zshrc; then
     echo -e "\n$MARKER_START" >> ~/.zshrc
