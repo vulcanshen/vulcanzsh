@@ -4,6 +4,18 @@
 
 > [NOTE!] 注意: 這部分的設定一定得在基礎功能 `--- vulcanzsh Config Start ---` 載入之後
 
+```sh
+# --- vulcanzsh Config Start ---
+for f in $HOME/.config/vulcanzsh/*.zsh; do [ -f "$f" ] && source "$f"; done
+# --- vulcanzsh Config End ---
+
+# optional 的設定要在基礎設定之後覆蓋
+# --- vulcanzsh optional config Start ---
+for f in $HOME$/.config/vulcanzsh/optional/*.zsh; do [ -f "$f" ] && source "$f"; done
+# --- vulcanzsh optional config End ---
+```
+
+
 ## 快速安裝
 
 ```sh
