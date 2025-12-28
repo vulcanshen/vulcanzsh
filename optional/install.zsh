@@ -3,8 +3,8 @@ REPO_NAME="vulcanzsh"
 BRANCH="main"
 BASE_URL="https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/${BRANCH}"
 
-MARKER_START="# --- vulcanzsh optional config Start ---"
-MARKER_END="# --- vulcanzsh optional config End ---"
+MARKER_START="# --- vulcanzsh optional config start ---"
+MARKER_END="# --- vulcanzsh optional config end ---"
 
 ZSH_CONF_DIR="$HOME/.config/vulcanzsh/optional"
 mkdir -p "$ZSH_CONF_DIR"

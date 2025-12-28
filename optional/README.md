@@ -3,21 +3,21 @@
 選用功能建構於核心功能之上，需要先載入基礎設定才能正常運作。
 
 > [!NOTE]  
-> **重要**：選用功能的設定必須放在基礎功能 `--- vulcanzsh config Start ---` 之後載入。
+> **重要**：選用功能的設定必須放在基礎功能 `--- vulcanzsh config start ---` 之後載入。
 
 ## 📋 載入順序說明
 
 在你的 `~/.zshrc` 中，請確保按照以下順序載入：
 
 ```sh
-# --- vulcanzsh config Start ---
+# --- vulcanzsh config start ---
 for f in $HOME/.config/vulcanzsh/*.zsh; do [ -f "$f" ] && source "$f"; done
-# --- vulcanzsh config End ---
+# --- vulcanzsh config end ---
 
 # 選用功能要在基礎設定之後載入
-# --- vulcanzsh optional config Start ---
+# --- vulcanzsh optional config start ---
 for f in $HOME/.config/vulcanzsh/optional/*.zsh; do [ -f "$f" ] && source "$f"; done
-# --- vulcanzsh optional config End ---
+# --- vulcanzsh optional config end ---
 ```
 
 ---
@@ -133,9 +133,9 @@ source ~/.zshrc
 rm -rf ~/.config/vulcanzsh/optional
 
 # 從 ~/.zshrc 中移除以下區塊：
-# --- vulcanzsh optional config Start ---
+# --- vulcanzsh optional config start ---
 # for f in $HOME/.config/vulcanzsh/optional/*.zsh; do [ -f "$f" ] && source "$f"; done
-# --- vulcanzsh optional config End ---
+# --- vulcanzsh optional config end ---
 
 # 重新載入配置
 source ~/.zshrc

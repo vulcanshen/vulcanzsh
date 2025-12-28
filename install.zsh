@@ -56,8 +56,8 @@ curl -fsSL "${BASE_URL}/zsh/bindkey.zsh" -o "${ZSH_CONF_DIR}/bindkey.zsh" || { p
 curl -fsSL "${BASE_URL}/zsh/v.zsh" -o "${ZSH_CONF_DIR}/v.zsh" || { print_error "Failed to download v.zsh"; exit 1; }
 
 # 3. Inject into ~/.zshrc
-MARKER_START="# --- vulcanzsh config Start ---"
-MARKER_END="# --- vulcanzsh config End ---"
+MARKER_START="# --- vulcanzsh config start ---"
+MARKER_END="# --- vulcanzsh config end ---"
 LOAD_CMD="for f in $ZSH_CONF_DIR/*.zsh; do [ -f \"\$f\" ] && source \"\$f\"; done"
 
 if ! grep -q "$MARKER_START" ~/.zshrc; then

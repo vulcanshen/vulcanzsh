@@ -121,7 +121,7 @@ return {
    rm -rf ~/.config/vulcanzsh
    ```
 
-2. 編輯 `~/.zshrc`，刪除 `--- vulcanzsh Config ---` 標記之間的所有內容
+2. 編輯 `~/.zshrc`，刪除 `--- vulcanzsh config ---` 標記之間的所有內容
 
 ## 🛠️ LazyVim 完整設定（選用）
 
