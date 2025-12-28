@@ -150,35 +150,9 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 ```
 
 
-## 🔍 進階功能
-
-> [!TIP] 備註：這些功能採用模組化設計。如果不需要，只需從配置目錄中移除對應的檔案（*.zsh、*.toml）即可。
-
 ---
 
-### llv (樹狀檢視列表)
-
-一個優化的快捷指令，用於視覺化顯示您的目錄結構。使用 ${1:-1} 語法優雅地處理選用參數。
-
-#### ⚠️ 必要前置條件
-
-請確保您已安裝以下工具：
-
-1. [eza](https://github.com/eza-community/eza)
-
-#### 🛠️ 程式碼實作
-
-```zsh
-# 使用 eza 以樹狀結構列出內容（優化版本）
-llv() {
-  local level="${1:-1}"
-  eza --tree --level="$level" --icons --group-directories-first --classify=always
-}
-```
-
----
-
-### Starship 提示字元自訂
+## Starship 提示字元自訂
 
 本倉庫包含自訂的 **Starship** 配置，提供簡約、快速且資訊豐富的提示字元。針對 **Catppuccin Mocha** 配色進行優化，具有簡潔的佈局與 Git 狀態及目錄追蹤功能。
 
@@ -200,3 +174,11 @@ mkdir -p ~/.config
 # 下載新的 starship 配置
 curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/starship/starship.toml -o ~/.config/starship.toml
 ```
+
+---
+
+## 🔍 選用功能
+
+> [!TIP] 備註：這些功能採用模組化設計。如果不需要，只需從配置目錄中移除對應的檔案（*.zsh、*.toml）即可。
+
+[選用功能](./optional/)
