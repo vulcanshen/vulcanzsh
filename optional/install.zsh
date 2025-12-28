@@ -22,3 +22,10 @@ if ! grep -q "$MARKER_START" ~/.zshrc; then
 else
     echo "Configuration markers found in ~/.zshrc, files updated."
 fi
+
+if [[ -t 0 ]]; then
+    print_info "Restarting zsh to apply changes..."
+    exec zsh -l
+else
+    print_info "Please run 'source ~/.zshrc' to apply changes."
+fi
