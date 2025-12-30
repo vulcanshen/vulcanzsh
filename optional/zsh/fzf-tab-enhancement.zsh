@@ -43,9 +43,13 @@ zstyle ':fzf-tab:*' continuous-trigger '/'    # Trigger next-level completion im
 zstyle ':fzf-tab:*' fzf-command fzf           # Use fzf as the backend
 
 # FZF UI Flags and Key Bindings
-zstyle ':fzf-tab:*' fzf-flags --color=16 --height=50% --reverse --inline-info --border --preview-window=right:70%:wrap \
+zstyle ':fzf-tab:*' fzf-flags --color=16 --height=90% --reverse --inline-info --border --preview-window=right:70% \
   --bind 'ctrl-u:half-page-up,ctrl-d:half-page-down' \
-  --bind 'U:preview-page-up,D:preview-page-down'
+  --bind 'U:preview-page-up,D:preview-page-down' \
+  --bind 'backward-eof:abort,change:top' \
+  --bind 'esc:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+abort' \
+  --bind 'enter:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+accept' \
+  --bind 'ctrl-c:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+abort'
 
 zstyle ':fzf-tab:*' switch-group '<' '>'      # Cycle through completion groups
 
@@ -145,17 +149,38 @@ zstyle ':fzf-tab:complete:kill:*' fzf-preview '
   fi'
 
 zstyle ':fzf-tab:complete:*:*' fzf-preview '
-  local t_word="${(Q)word% }"
+  local target="${(Q)word% }"
+  printf "\e_Ga=d,d=A;\e\\" > /dev/tty
   case "$group" in
     "[local directory]") 
       eza --icons=always --color=always --long "$realpath" ;;
     "[files]"|"[file]") 
-      local target="$PWD/${t_word}"
       if [ -d "$target" ]; then
         eza --icons=always --color=always --long "$target"
       elif [ -f "$target" ]; then
-        # Preview file content using bat with a base16 theme
-        bat --color=always --theme=base16 "$target"
+        # 取得副檔名並轉小寫
+        local ext="${target:e:l}"
+        if [[ "$ext" =~ ^(png|jpg|jpeg|gif|webp|bmp|ico)$ ]]; then
+          if command -v chafa >/dev/null; then
+
+            local max_height=$((FZF_PREVIEW_LINES - 3))  
+          
+            echo "\033[1;36m ${target:t}\033[0m"
+            
+            chafa --format=kitty \
+              --size="${FZF_PREVIEW_COLUMNS}x${max_height}" \
+              --scale=max \
+              "$target"
+            
+            echo ""
+
+          else
+            file "$target"
+            echo "\033[1;31m(請安裝 chafa 以顯示圖片)\033[0m"
+          fi
+        else
+          bat --color=always --theme=base16 --wrap "$target" 
+        fi
       else
         echo "group:$group\nword: $word\nrealpath: $realpath"
       fi ;;
@@ -167,6 +192,7 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '
       echo "desc:$desc"
       ;;
   esac'
+
 
 _kill_fzf_friendly() {
   local -a pids descriptions

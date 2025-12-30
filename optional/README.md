@@ -70,7 +70,7 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 
 ---
 
-### 2. ⚡ tab-enhancement - CLI Tab 補全強化
+### 2. ⚡ fzf-tab-enhancement - CLI Tab 補全強化
 
 整合 **Carapace**（補全來源）、**fzf-tab**（互動式選單）與現代化 CLI 工具（eza、bat、vivid），打造極致的 Tab 補全體驗。
 
@@ -81,6 +81,7 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 - 🎨 語法高亮顯示
 - 🔍 支援多種指令的進階補全
 - ⌨️ 直覺的快捷鍵操作
+- 🖼️ 支援常見圖片格式預覽
 
 #### 使用方式
 
@@ -100,11 +101,12 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 3. **[vivid](https://github.com/sharkdp/vivid)** - LS_COLORS 主題生成器
 4. **[carapace](https://github.com/carapace-sh/carapace)** - 多 shell 指令補全工具
 5. **[fzf-tab](https://github.com/Aloxaf/fzf-tab)** - fzf 風格的 Zsh Tab 補全
+6. **[chafa](https://github.com/hpjansson/chafa)** - 終端機圖片查看器
 
 #### 單獨安裝
 
 ```zsh
-curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/tab-enhancement.zsh -o ~/.config/vulcanzsh/optional/tab-enhancement.zsh
+curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/main/optional/zsh/fzf-tab-enhancement.zsh -o ~/.config/vulcanzsh/optional/fzf-tab-enhancement.zsh
 ```
 
 ---
@@ -120,7 +122,7 @@ curl -fsSL https://raw.githubusercontent.com/vulcanshen/vulcanzsh/refs/heads/mai
 rm ~/.config/vulcanzsh/optional/llv.zsh
 
 # 移除 tab 補全強化
-rm ~/.config/vulcanzsh/optional/tab-enhancement.zsh
+rm ~/.config/vulcanzsh/optional/fzf-tab-enhancement.zsh
 
 # 重新載入配置
 source ~/.zshrc
@@ -151,7 +153,7 @@ source ~/.zshrc
 - 避免在大型專案使用過深的層級，以免輸出過多內容
 - 可搭配 `grep` 或管道符號篩選特定檔案類型
 
-### tab-enhancement 最佳實踐
+### fzf-tab-enhancement 最佳實踐
 
 - 善用模糊搜尋功能，輸入部分關鍵字即可快速定位
 - 預覽功能可幫助你在選擇前確認檔案內容
