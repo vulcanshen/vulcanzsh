@@ -1,4 +1,3 @@
-
 # ------------------------------------------------------------------------------
 # 1. GLOBAL COMPLETION SETTINGS (Zsh Built-in)
 # ------------------------------------------------------------------------------
@@ -42,14 +41,29 @@ zstyle ':fzf-tab:*' query-string ''           # Start fzf with an empty query (p
 zstyle ':fzf-tab:*' continuous-trigger '/'    # Trigger next-level completion immediately after '/'
 zstyle ':fzf-tab:*' fzf-command fzf           # Use fzf as the backend
 
-# FZF UI Flags and Key Bindings
+# =============================================================================
+# [新增] 終端圖形協議支援判斷
+# =============================================================================
+# 判斷是否支援 Kitty 圖形協議 (Kitty / Ghostty)
+if [[ -n "$KITTY_WINDOW_ID" || "$TERM_PROGRAM" == "ghostty" ]]; then
+  _kitty_clear_cmd='printf "\e_Ga=d,d=A;\e\\" > /dev/tty'
+else
+  _kitty_clear_cmd=':'  # 空操作 (no-op)
+fi
+
+# =============================================================================
+# [修改] FZF UI Flags and Key Bindings - 使用變數處理 Kitty 序列
+# =============================================================================
 zstyle ':fzf-tab:*' fzf-flags --color=16 --height=90% --reverse --inline-info --border --preview-window=right:70% \
   --bind 'ctrl-u:half-page-up,ctrl-d:half-page-down' \
   --bind 'U:preview-page-up,D:preview-page-down' \
   --bind 'backward-eof:abort,change:top' \
-  --bind 'esc:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+abort' \
-  --bind 'enter:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+accept' \
-  --bind 'ctrl-c:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+abort'
+  --bind "esc:execute-silent(${_kitty_clear_cmd})+abort" \
+  --bind "enter:execute-silent(${_kitty_clear_cmd})+accept" \
+  --bind "ctrl-c:execute-silent(${_kitty_clear_cmd})+abort"
+# [原本] --bind 'esc:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+abort' \
+# [原本] --bind 'enter:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+accept' \
+# [原本] --bind 'ctrl-c:execute-silent(printf "\e_Ga=d,d=A;\e\\" > /dev/tty)+abort'
 
 zstyle ':fzf-tab:*' switch-group '<' '>'      # Cycle through completion groups
 
@@ -148,9 +162,14 @@ zstyle ':fzf-tab:complete:kill:*' fzf-preview '
     fi
   fi'
 
+# =============================================================================
+# [修改] 通用檔案預覽 - 加入終端判斷
+# =============================================================================
 zstyle ':fzf-tab:complete:*:*' fzf-preview '
   local target="${(Q)word% }"
-  printf "\e_Ga=d,d=A;\e\\" > /dev/tty
+  # [修改] 加入終端判斷，只在支援的終端執行 Kitty 圖形清除
+  [[ -n "$KITTY_WINDOW_ID" || "$TERM_PROGRAM" == "ghostty" ]] && printf "\e_Ga=d,d=A;\e\\" > /dev/tty
+  # [原本] printf "\e_Ga=d,d=A;\e\\" > /dev/tty
   case "$group" in
     "[local directory]") 
       eza --icons=always --color=always --long "$realpath" ;;
@@ -165,7 +184,7 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '
 
             local max_height=$((FZF_PREVIEW_LINES - 3))  
           
-            echo "\033[1;36m ${target:t}\033[0m"
+            echo "\033[1;36m ${target:t}\033[0m"
             
             chafa --format=kitty \
               --size="${FZF_PREVIEW_COLUMNS}x${max_height}" \
@@ -184,13 +203,32 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '
       else
         echo "group:$group\nword: $word\nrealpath: $realpath"
       fi ;;
+    # ==========================================================================
+    # [修改] 預設情況 - 改為智能預覽，不再輸出 debug 資訊
+    # ==========================================================================
     *) 
-      echo "Not implement yet"
-      echo "group:$group"
-      echo "word:$word"
-      echo "realpath:$realpath"
-      echo "desc:$desc"
+      if [[ -n "$realpath" && -e "$realpath" ]]; then
+        if [[ -d "$realpath" ]]; then
+          eza --icons=always --color=always --long "$realpath" 2>/dev/null || ls -la "$realpath"
+        elif [[ -f "$realpath" ]]; then
+          bat --color=always --theme=base16 "$realpath" 2>/dev/null || cat "$realpath"
+        else
+          echo "$desc"
+        fi
+      elif [[ -n "$desc" ]]; then
+        echo "$desc"
+      else
+        echo "$word"
+      fi
       ;;
+    # [原本]
+    # *) 
+    #   echo "Not implement yet"
+    #   echo "group:$group"
+    #   echo "word:$word"
+    #   echo "realpath:$realpath"
+    #   echo "desc:$desc"
+    #   ;;
   esac'
 
 
