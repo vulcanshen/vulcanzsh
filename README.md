@@ -27,7 +27,7 @@ source ~/.config/vulcanzsh/source.zsh
 ## 必要前置條件
 
 - **zsh** 與 **[Oh My Zsh](https://ohmyz.sh/)**
-- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** 插件（`Ctrl + o` 接受建議需要）
+- **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** 插件（`Meta + o` 接受建議需要）
 
 ## 檔案結構
 
@@ -35,9 +35,9 @@ source ~/.config/vulcanzsh/source.zsh
 ~/.config/vulcanzsh/
 ├── source.zsh                   # 入口，自動載入同目錄下所有 .zsh
 ├── bindkey.zsh                  # 快捷鍵設定
+├── clip.zsh                     # 複製檔案到剪貼簿
 ├── fzf-tab-enhancement.zsh      # fzf-tab 進階預覽設定
 ├── llv.zsh                      # eza 樹狀目錄檢視
-├── spfz.zsh                     # fzf + superfile 整合
 └── v.zsh                        # nvim 智慧開啟函式
 ```
 
@@ -45,24 +45,27 @@ source ~/.config/vulcanzsh/source.zsh
 
 ### bindkey.zsh — 快捷鍵
 
+> 使用 Meta 鍵作為修飾鍵（macOS 為 Option、Windows/Linux 為 Alt）。
+> macOS 終端機需確認 Option 鍵已設定為 Meta 鍵。
+
 | 快捷鍵 | 功能 | 模式 |
 |--------|------|------|
-| `Ctrl + k` | 向上搜尋歷史指令 | 命令列 |
-| `Ctrl + j` | 向下搜尋歷史指令 | 命令列 |
-| `Ctrl + h` | 向左跳一個單字 | 命令列 |
-| `Ctrl + l` | 向右跳一個單字 | 命令列 |
-| `Ctrl + o` | 接受 autosuggestion | 命令列 |
-| `Ctrl + k / j` | 上下選擇 | 選單模式 |
+| `Meta + k` | 向上搜尋歷史指令 | 命令列 |
+| `Meta + j` | 向下搜尋歷史指令 | 命令列 |
+| `Meta + h` | 向左跳一個單字 | 命令列 |
+| `Meta + l` | 向右跳一個單字 | 命令列 |
+| `Meta + o` | 接受 autosuggestion | 命令列 |
+| `Meta + k / j` | 上下選擇 | 選單模式 |
+
+### clip.zsh — 複製檔案到剪貼簿
+
+- `clip <檔案>`：將檔案複製到系統剪貼簿，可直接在 Finder 中貼上
 
 ### v.zsh — 智慧開啟 nvim
 
 - `v`：在當前目錄開啟 `nvim .`
 - `v <檔案>`：自動 cd 到檔案所在目錄再開啟
 - `v <目錄>`：cd 到該目錄後開啟 `nvim .`
-
-### spfz.zsh — fzf + superfile
-
-- `spfz`：用 fzf 選擇檔案或目錄，然後用 superfile 開啟
 
 ### fzf-tab-enhancement.zsh — fzf-tab 進階預覽
 
