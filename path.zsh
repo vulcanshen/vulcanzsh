@@ -1,0 +1,10 @@
+PATH=$PATH:$(ruby -e 'puts Gem.bindir')
+export PATH="$HOME/Documents/tools/phantomjs-2.1.1-macosx/bin:$PATH"
+export PATH="/opt/homebrew/opt/ollama/bin:$PATH"
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+export PATH="/opt/homebrew/opt/apr/bin:$PATH"
+export PATH="/opt/homebrew/opt/apr-util/bin:$PATH"
+export PATH="~/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"

@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.0 (2026-04-24)
+
+- `source.zsh` 在載入其他模組前先執行 `set -o vi`，修正 bindkey 因 keymap 順序失效的問題
+- 新增 `alias.zsh`、`completion.zsh`、`export.zsh`、`functions.zsh`、`path.zsh` 分拆設定檔
+- 路徑改用 `$HOME` 取代硬編碼的絕對路徑
+
 ## v1.1.0 (2026-04-20)
 
 - 新增 `clip.zsh`：`clip <檔案>` 將檔案複製到系統剪貼簿，可在 Finder 中貼上

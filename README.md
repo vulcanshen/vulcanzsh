@@ -33,11 +33,16 @@ source ~/.config/vulcanzsh/source.zsh
 
 ```
 ~/.config/vulcanzsh/
-├── source.zsh                   # 入口，自動載入同目錄下所有 .zsh
+├── source.zsh                   # 入口，set -o vi 後自動載入同目錄下所有 .zsh
+├── alias.zsh                    # 別名設定
 ├── bindkey.zsh                  # 快捷鍵設定
 ├── clip.zsh                     # 複製檔案到剪貼簿
+├── completion.zsh               # 補全設定
+├── export.zsh                   # 環境變數
+├── functions.zsh                # 自訂函式
 ├── fzf-tab-enhancement.zsh      # fzf-tab 進階預覽設定
 ├── llv.zsh                      # eza 樹狀目錄檢視
+├── path.zsh                     # PATH 設定
 └── v.zsh                        # nvim 智慧開啟函式
 ```
 

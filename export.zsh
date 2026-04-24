@@ -1,0 +1,5 @@
+export EDITOR='nvim'
+export LANG=en_US.UTF-8
+export DOCKER_DEFAULT_PLATFORM=linux/arm64
+export HELM_EXPERIMENTAL_OCI=1
+export CLAUDE_CODE_NO_FLICKER=1
