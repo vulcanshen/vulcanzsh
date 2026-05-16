@@ -1,3 +1,14 @@
+tmux_rename_window() {
+  local name
+  name=$(printf '' | fzf --print-query --prompt='Rename window (enter to reset auto): ' | head -1)
+  if [[ -n "$name" ]]; then
+    tmux rename-window "$name"
+    tmux set-window-option automatic-rename off
+  else
+    tmux set-window-option automatic-rename on
+  fi
+}
+
 tmux_session_picker() {
   local is_entrance=${1:-false}
   local current_session selected sessions options
