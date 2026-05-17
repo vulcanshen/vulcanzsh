@@ -127,6 +127,11 @@ tmux_on_session_close() {
 }
 
 if [[ -z "$TMUX" ]]; then
+  # Skip if a user is already attached to tmux (shell spawned by a third-party app like OrbStack)
+  if tmux list-clients -F '#{session_name}' 2>/dev/null | grep -qv '^entrance'; then
+    return 2>/dev/null || exit 0
+  fi
+
   # Clean up detached entrance sessions
   tmux list-sessions -F '#{session_name} #{session_attached}' 2>/dev/null \
     | awk '$1 ~ /^entrance(-[0-9]+)?$/ && $2 == 0 {print $1}' \
