@@ -83,7 +83,7 @@ _tmux_after_picker() {
   if tmux showenv -g _TMUX_NEW_SESSION_REQUESTED 2>/dev/null | grep -q '=1'; then
     tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
     tmux display-popup -b rounded -h 3 -w 50 \
-      -x '#{popup_centre_x}' -y '#{popup_centre_y}' \
+      -x C -y C \
       -S "fg=#89b4fa" \
       -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_new_session_input $is_entrance $from_session'"
   fi
@@ -92,7 +92,7 @@ _tmux_after_picker() {
 tmux_s_flow() {
   tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
   tmux display-popup -b rounded -w 50 \
-    -x '#{popup_centre_x}' -y '#{popup_centre_y}' \
+    -x C -y C \
     -S "fg=#89b4fa" \
     -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_session_picker'"
   _tmux_after_picker false
@@ -103,7 +103,7 @@ tmux_entrance() {
   entrance_session=$(tmux display-message -p '#{session_name}')
   tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
   tmux display-popup -b rounded -w 50 \
-    -x '#{popup_centre_x}' -y '#{popup_centre_y}' \
+    -x C -y C \
     -S "fg=#89b4fa" \
     -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_session_picker true'"
   _tmux_after_picker true "$entrance_session"
@@ -119,7 +119,7 @@ tmux_on_session_close() {
   if [[ "$count" -gt 1 ]]; then
     tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
     tmux display-popup -b rounded -w 50 \
-      -x '#{popup_centre_x}' -y '#{popup_centre_y}' \
+      -x C -y C \
       -S "fg=#89b4fa" \
       -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_session_picker'"
     _tmux_after_picker false
