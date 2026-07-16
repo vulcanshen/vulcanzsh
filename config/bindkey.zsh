@@ -1,3 +1,6 @@
+# vi 模式（zsh 慣用寫法；須在下方自訂 bindkey 之前，綁定才會落在 viins keymap）
+bindkey -v
+
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search

@@ -1,26 +1,15 @@
+# ==============================================================================
+# fzf-tab 專屬設定（fzf-tab preview / UI）
 # ------------------------------------------------------------------------------
-# 1. GLOBAL COMPLETION SETTINGS (Zsh Built-in)
-# ------------------------------------------------------------------------------
-
-# Generate high-quality LS_COLORS using the 'vivid' tool
-export LS_COLORS=$(vivid generate catppuccin-mocha)
-export LISTMAX=500                 # Allow more items before asking to show them
-
-unsetopt menucomplete             # Do not autoselect the first completion entry
-setopt listambiguous              # Show completion menu only on ambiguous input
-
-# Styling and Formatting
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' menu no                             # Use fzf-tab instead of native menu
-zstyle ':completion:*:messages' format '[%d]'              # System messages style
-zstyle ':completion:*:descriptions' format '[%d]'          # Group descriptions style
-zstyle ':completion:*:options' auto-description '%10d'
-
-# Matcher list: Enable case-insensitive and fuzzy matching (e.g., ._ matching)
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# 全域補全設定（LS_COLORS、matcher-list、carapace、kill 補全等）已於 2026-07
+# 搬移到 completion.zsh；此檔只保留 :fzf-tab:* 樣式與 fzf-preview。
+# 注意：本檔目前「不會被載入」——已在 source.zsh 的迴圈中排除，因為 fzf-tab
+# 已從 ~/.zshrc plugins 移除。保留備用。
+# 要恢復 fzf-tab：①把 fzf-tab 加回 ~/.zshrc 的 plugins ②移除 source.zsh 的排除條件。
+# ==============================================================================
 
 # ------------------------------------------------------------------------------
-# 2. CARAPACE & FZF-TAB CORE INITIALIZATION
+# 1. FZF-TAB CORE
 # ------------------------------------------------------------------------------
 
 # Priority order for completion groups
@@ -29,14 +18,10 @@ zstyle ':fzf-tab:*' prefix ''            # Keep the search query clean
 zstyle ':fzf-tab:*' format '(%d)'        # Group header format
 zstyle ':fzf-tab:*' show-group quiet      # Only show headers for relevant groups
 
-# Initialize Carapace completion engine
-source <(carapace _carapace zsh)
-
 # ------------------------------------------------------------------------------
-# 3. FZF-TAB BEHAVIOR & INTERFACE
+# 2. FZF-TAB BEHAVIOR & INTERFACE
 # ------------------------------------------------------------------------------
 
-zstyle ':completion:*' nospace true           # Prevent auto-adding spaces (vital for path traversal)
 zstyle ':fzf-tab:*' query-string ''           # Start fzf with an empty query (prevents redundant filtering)
 zstyle ':fzf-tab:*' continuous-trigger '/'    # Trigger next-level completion immediately after '/'
 zstyle ':fzf-tab:*' fzf-command fzf           # Use fzf as the backend
@@ -68,7 +53,7 @@ zstyle ':fzf-tab:*' fzf-flags --color=16 --height=90% --reverse --inline-info --
 zstyle ':fzf-tab:*' switch-group '<' '>'      # Cycle through completion groups
 
 # ------------------------------------------------------------------------------
-# 4. GIT SPECIFIC PREVIEWS
+# 3. GIT SPECIFIC PREVIEWS
 # ------------------------------------------------------------------------------
 
 zstyle ':fzf-tab:complete:git:*' fzf-preview '
@@ -95,7 +80,7 @@ zstyle ':fzf-tab:complete:git:*' fzf-preview '
   esac'
 
 # ------------------------------------------------------------------------------
-# 5. GENERAL FILE SYSTEM & PROCESS PREVIEWS
+# 4. GENERAL FILE SYSTEM & PROCESS PREVIEWS
 # ------------------------------------------------------------------------------
 
 zstyle ':fzf-tab:complete:kill:*' fzf-preview '
@@ -231,18 +216,4 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '
     #   ;;
   esac'
 
-
-_kill_fzf_friendly() {
-  local -a pids descriptions
-  local pid name
-  
-  # 使用 zsh 內建的字串操作：${name##*/} 取得最後一個 / 之後的內容
-  while read -r pid name; do
-    pids+=("$pid")
-    descriptions+=("${pid}::${name##*/}")
-  done < <(ps -u "$USER" -o pid=,comm= 2>/dev/null | tail -n +2 | head -n 500)
-  
-  compadd -d descriptions -a pids
-}
-
-compdef _kill_fzf_friendly kill
+# （kill 友善補全已搬到 completion.zsh 的 _kill_friendly）

@@ -85,7 +85,7 @@ _tmux_after_picker() {
     tmux display-popup -b rounded -h 3 -w 50 \
       -x C -y C \
       -S "fg=#89b4fa" \
-      -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_new_session_input $is_entrance $from_session'"
+      -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_new_session_input $is_entrance $from_session'"
   fi
 }
 
@@ -94,7 +94,7 @@ tmux_s_flow() {
   tmux display-popup -b rounded -w 50 \
     -x C -y C \
     -S "fg=#89b4fa" \
-    -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_session_picker'"
+    -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_session_picker'"
   _tmux_after_picker false
 }
 
@@ -105,7 +105,7 @@ tmux_entrance() {
   tmux display-popup -b rounded -w 50 \
     -x C -y C \
     -S "fg=#89b4fa" \
-    -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_session_picker true'"
+    -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_session_picker true'"
   _tmux_after_picker true "$entrance_session"
 }
 
@@ -121,7 +121,7 @@ tmux_on_session_close() {
     tmux display-popup -b rounded -w 50 \
       -x C -y C \
       -S "fg=#89b4fa" \
-      -E "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_session_picker'"
+      -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_session_picker'"
     _tmux_after_picker false
   fi
 }
@@ -147,6 +147,6 @@ if [[ -z "$TMUX" ]]; then
   unset _n
 
   tmux new-session -d -s "$_entrance" \
-    "zsh -c 'source ~/.config/vulcanzsh/into-tmux.zsh && tmux_entrance'"
+    "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_entrance'"
   exec tmux attach -t "$_entrance"
 fi

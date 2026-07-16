@@ -19,3 +19,4 @@ alias opf='spf $(fzf)'
 alias rsrc='source ~/.zshrc'
 alias vsrc='nvim ~/.zshrc'
 alias trdn="tr -d '\n'"
+alias reloadcomp='rm -f ~/.zcompdump*; autoload -Uz compinit && compinit && echo "✔ completion cache rebuilt"'
