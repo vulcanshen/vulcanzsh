@@ -91,7 +91,7 @@ source ~/.config/vulcanzsh/source.zsh
 |------|------|------|
 | `v [路徑]` | 智慧開啟 nvim（給檔案→cd 到其目錄再開；給目錄→cd 進去再開）| [neovim](https://neovim.io/) |
 | `clip <檔案>` | 複製檔案到系統剪貼簿（可直接在 Finder 貼上）| macOS |
-| `llv [深度]` | eza 樹狀目錄檢視（預設深度 1）| [eza](https://github.com/eza-community/eza) |
+| `llv [-lv N] [路徑...]` | eza 樹狀目錄檢視（預設深度 1；`-lv N` 設定深度、可像 `ls` 接路徑）| [eza](https://github.com/eza-community/eza) |
 | `ssh` | 強制 `TERM=xterm-256color` 的 ssh 包裝 | — |
 | `mtp` | 強制 `TERM=xterm-256color` 的 multipass 包裝 | multipass |
 | `chrome [url]` | 開啟 Google Chrome | macOS |
