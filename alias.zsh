@@ -18,4 +18,4 @@ alias mtx='cmatrix -s -r'
 alias opf='spf $(fzf)'
 alias rsrc='source ~/.zshrc'
 alias vsrc='nvim ~/.zshrc'
-alias chromedev='open -na "Google Chrome" --args --disable-web-security --user-data-dir="/tmp/chrome_dev"'
+alias trdn="tr -d '\n'"
