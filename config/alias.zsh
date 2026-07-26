@@ -20,3 +20,5 @@ alias rsrc='source ~/.zshrc'
 alias vsrc='nvim ~/.zshrc'
 alias trdn="tr -d '\n'"
 alias reloadcomp='rm -f ~/.zcompdump*; autoload -Uz compinit && compinit && echo "✔ completion cache rebuilt"'
+# gitnexus analyze: 一律 --index-only(不注入團隊檔 CLAUDE.md/AGENTS.md/skills;見 ~/.claude/rules/gitnexus.md)
+alias gna='npx gitnexus analyze --index-only'
