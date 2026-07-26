@@ -49,7 +49,8 @@ source ~/.config/vulcanzsh/source.zsh
 └── functions/                  # 獨立小工具函式（一檔一指令，檔名＝指令）
     ├── v.zsh    clip.zsh   llv.zsh
     ├── ssh.zsh  mtp.zsh    cld.zsh
-    └── chrome.zsh  chromedev.zsh
+    ├── chrome.zsh  chromedev.zsh
+    └── cpath.zsh
 ```
 
 ## 組織原則
@@ -97,6 +98,7 @@ source ~/.config/vulcanzsh/source.zsh
 | `chrome [url]` | 開啟 Google Chrome | macOS |
 | `chromedev [url]` | 開啟 Chrome（停用 web security ＋ 獨立 profile，開發用）| macOS |
 | `cld [session]` | `claude`；帶參數則 `claude --resume <session>` | claude |
+| `cpath <檔案或目錄>` | 複製絕對路徑到剪貼簿 | macOS |
 
 ### modules/tmux-workflow.zsh — tmux session 流程
 
