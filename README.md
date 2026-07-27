@@ -45,6 +45,7 @@ source ~/.config/vulcanzsh/source.zsh
 │   └── path.zsh                # PATH
 ├── modules/                    # 強化模組（高內聚、自成一格的功能）
 │   ├── tmux-workflow.zsh       # tmux session 進場/切換/新建流程
+│   ├── history-skip-failed.zsh # 失敗指令不寫入 history
 │   └── fzf-tab-enhancement.zsh # fzf-tab 進階預覽（目前停用，見下方）
 └── functions/                  # 獨立小工具函式（一檔一指令，檔名＝指令）
     ├── v.zsh    clip.zsh   llv.zsh
@@ -107,6 +108,12 @@ source ~/.config/vulcanzsh/source.zsh
 由 `~/.config/tmux/tmux.conf` 的按鍵綁定與 hook 呼叫（以路徑 `source` 本檔）。
 
 **依賴**：[tmux](https://github.com/tmux/tmux)、[fzf](https://github.com/junegunn/fzf)
+
+### modules/history-skip-failed.zsh — 失敗指令不寫入 history
+
+`precmd` hook 檢查上一個指令的結束碼，非 0 就把 `$HISTFILE` 最後一行砍掉並 `fc -R` 重新載入記憶體內的 history，讓失敗／打錯的指令不會留在 history、也不會被 zsh-autosuggestions 建議。
+
+> zsh 的 history 檔案不記錄結束碼，所以此機制只對**往後**的指令生效；既有紀錄中的失敗指令無法自動篩選，只能用 `history -c` 整批清空。
 
 ### modules/fzf-tab-enhancement.zsh — fzf-tab 進階預覽（目前停用）
 
