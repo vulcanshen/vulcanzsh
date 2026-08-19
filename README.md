@@ -51,7 +51,8 @@ source ~/.config/vulcanzsh/source.zsh
     ├── v.zsh    clip.zsh   llv.zsh
     ├── ssh.zsh  mtp.zsh    cld.zsh
     ├── chrome.zsh  chromedev.zsh
-    └── cpath.zsh
+    ├── cpath.zsh
+    └── preview.zsh
 ```
 
 ## 組織原則
@@ -100,6 +101,7 @@ source ~/.config/vulcanzsh/source.zsh
 | `chromedev [url]` | 開啟 Chrome（停用 web security ＋ 獨立 profile，開發用）| macOS |
 | `cld [session]` | `claude`；帶參數則 `claude --resume <session>` | claude |
 | `cpath <檔案或目錄>` | 複製絕對路徑到剪貼簿 | macOS |
+| `preview <檔案/目錄...>` | 用 Quick Look 跳出預覽視窗 | macOS |
 
 ### modules/tmux-workflow.zsh — tmux session 流程
 
