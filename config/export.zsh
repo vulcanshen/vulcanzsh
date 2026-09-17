@@ -6,5 +6,6 @@ export CLAUDE_CODE_NO_FLICKER=1
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
-export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
 export HOMEBREW_NO_ASK=1
+export SONAR_TOKEN_CLOUDFUSION_RCS=sqp_06ac435bb1d86edf2c82923de60e3e99b89acdda
+export ECC_GATEGUARD=off
