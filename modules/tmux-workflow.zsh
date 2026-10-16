@@ -1,6 +1,6 @@
 tmux_rename_window() {
   local name
-  name=$(printf '' | fzf --print-query --prompt='Rename window (enter to reset auto): ' --no-info --no-separator --margin=1,0,0,0 --border=rounded --color=border:#89b4fa | head -1)
+  name=$(printf '' | fzf --print-query --prompt='Rename window (enter to reset auto): ' --no-info --no-separator --input-border=rounded --color=input-border:#89b4fa | head -1)
   if [[ -n "$name" ]]; then
     tmux rename-window "$name"
     tmux set-window-option automatic-rename off
@@ -41,8 +41,8 @@ tmux_new_session_input() {
   local header="" new_name num
 
   while true; do
-    local fzf_args=(--reverse --print-query --prompt='Session name (enter for auto): ' --no-info --no-separator --margin=1,0,0,0 --border=rounded --color=border:#89b4fa --bind 'esc:abort')
-    [[ -n "$header" ]] && fzf_args+=(--header "$header")
+    local fzf_args=(--print-query --prompt='Session name (enter for auto): ' --no-info --no-separator --input-border=rounded --color=input-border:#89b4fa --bind 'esc:abort')
+    [[ -n "$header" ]] && fzf_args+=(--input-label " $header ")
     new_name=$(printf '' | fzf "${fzf_args[@]}" 2>/dev/null | head -1)
 
     if [[ -z "$new_name" ]]; then
@@ -84,7 +84,7 @@ _tmux_after_picker() {
 
   if tmux showenv -g _TMUX_NEW_SESSION_REQUESTED 2>/dev/null | grep -q '=1'; then
     tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
-    tmux display-popup "${client_args[@]}" -B -h 5 -w 50 \
+    tmux display-popup "${client_args[@]}" -B -h 4 -w 50 \
       -x C -y C \
       -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_new_session_input $is_entrance $from_session'"
   fi
