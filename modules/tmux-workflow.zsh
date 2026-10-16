@@ -1,6 +1,6 @@
 tmux_rename_window() {
   local name
-  name=$(printf '' | fzf --print-query --prompt='Rename window (enter to reset auto): ' | head -1)
+  name=$(printf '' | fzf --print-query --prompt='Rename window (enter to reset auto): ' --no-info --no-separator --margin=1,0,0,0 --border=rounded --color=border:#89b4fa | head -1)
   if [[ -n "$name" ]]; then
     tmux rename-window "$name"
     tmux set-window-option automatic-rename off
@@ -21,7 +21,7 @@ tmux_session_picker() {
   options="[New Session]"
   [[ -n "$sessions" ]] && options+=$'\n'"$sessions"
 
-  selected=$(printf '%s\n' "$options" | fzf --reverse --prompt='Session: ' --no-info --bind "$esc_bind")
+  selected=$(printf '%s\n' "$options" | fzf --reverse --prompt='Session: ' --no-info --margin=1,0,0,0 --border=rounded --color=border:#89b4fa --bind "$esc_bind")
   [[ -z "$selected" ]] && return  # ESC or Ctrl-C
 
   if [[ "$selected" == "[New Session]" ]]; then
@@ -41,7 +41,7 @@ tmux_new_session_input() {
   local header="" new_name num
 
   while true; do
-    local fzf_args=(--reverse --print-query --prompt='Session name (enter for auto): ' --no-info --bind 'esc:abort')
+    local fzf_args=(--reverse --print-query --prompt='Session name (enter for auto): ' --no-info --no-separator --margin=1,0,0,0 --border=rounded --color=border:#89b4fa --bind 'esc:abort')
     [[ -n "$header" ]] && fzf_args+=(--header "$header")
     new_name=$(printf '' | fzf "${fzf_args[@]}" 2>/dev/null | head -1)
 
@@ -79,21 +79,21 @@ tmux_new_session_input() {
 _tmux_after_picker() {
   local is_entrance=${1:-false}
   local from_session=${2:-}
+  local client_args=()
+  [[ -n "$3" ]] && client_args=(-c "$3")
 
   if tmux showenv -g _TMUX_NEW_SESSION_REQUESTED 2>/dev/null | grep -q '=1'; then
     tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
-    tmux display-popup -b rounded -h 3 -w 50 \
+    tmux display-popup "${client_args[@]}" -B -h 5 -w 50 \
       -x C -y C \
-      -S "fg=#89b4fa" \
       -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_new_session_input $is_entrance $from_session'"
   fi
 }
 
 tmux_s_flow() {
   tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
-  tmux display-popup -b rounded -w 50 \
+  tmux display-popup -B -w 50 \
     -x C -y C \
-    -S "fg=#89b4fa" \
     -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_session_picker'"
   _tmux_after_picker false
 }
@@ -102,27 +102,30 @@ tmux_entrance() {
   local entrance_session
   entrance_session=$(tmux display-message -p '#{session_name}')
   tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
-  tmux display-popup -b rounded -w 50 \
+  tmux display-popup -B -w 50 \
     -x C -y C \
-    -S "fg=#89b4fa" \
     -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_session_picker true'"
   _tmux_after_picker true "$entrance_session"
 }
 
 tmux_on_session_close() {
+  local lost
+  lost=$(tmux show -gv @session_lost 2>/dev/null)
+  tmux set -gu @session_lost
   if tmux showenv -g _TMUX_PICKER_CLOSING 2>/dev/null | grep -q '=1'; then
     tmux setenv -gu _TMUX_PICKER_CLOSING
     return
   fi
+  # No client was on the closed session (e.g. a script's detached session): nothing to pick
+  [[ -n "$lost" ]] || return
   local count
   count=$(tmux list-sessions 2>/dev/null | wc -l | tr -d ' ')
   if [[ "$count" -gt 1 ]]; then
     tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
-    tmux display-popup -b rounded -w 50 \
+    tmux display-popup -c "$lost" -B -w 50 \
       -x C -y C \
-      -S "fg=#89b4fa" \
       -E "zsh -c 'source ~/.config/vulcanzsh/modules/tmux-workflow.zsh && tmux_session_picker'"
-    _tmux_after_picker false
+    _tmux_after_picker false "" "$lost"
   fi
 }
 
