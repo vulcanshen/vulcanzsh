@@ -17,7 +17,8 @@ tmux_session_picker() {
   local esc_bind
   [[ "$is_entrance" == true ]] && esc_bind="esc:ignore" || esc_bind="esc:abort"
 
-  sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | grep -v "^${current_session}$")
+  # _o<id>_<tool>: hidden o-mode tools (tmux-config scripts/o-popup.sh), not sessions to switch to
+  sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | grep -v "^${current_session}$" | grep -v '^_o[0-9]*_')
   options="[New Session]"
   [[ -n "$sessions" ]] && options+=$'\n'"$sessions"
 
@@ -119,7 +120,7 @@ tmux_on_session_close() {
   # No client was on the closed session (e.g. a script's detached session): nothing to pick
   [[ -n "$lost" ]] || return
   local count
-  count=$(tmux list-sessions 2>/dev/null | wc -l | tr -d ' ')
+  count=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | grep -vc '^_o[0-9]*_')
   if [[ "$count" -gt 1 ]]; then
     tmux setenv -gu _TMUX_NEW_SESSION_REQUESTED
     tmux display-popup -c "$lost" -B -w 50 \
