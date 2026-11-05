@@ -36,13 +36,15 @@ source ~/.config/vulcanzsh/source.zsh
 
 ```
 ~/.config/vulcanzsh/
-├── source.zsh                  # 入口 loader：依序載入 config/ → functions/ → modules/
+├── source.zsh                  # 入口 loader：依序載入 config/ → functions/ → modules/（各層後接 .local/ 同名層）
 ├── config/                     # 一般設定（shell 基礎行為）
 │   ├── alias.zsh               # 別名（含 reloadcomp 等）
 │   ├── bindkey.zsh             # vi 模式（bindkey -v）＋ 快捷鍵
 │   ├── completion.zsh          # 補全來源、樣式、compinit 快取
 │   ├── export.zsh              # 環境變數
 │   └── path.zsh                # PATH
+├── .local/                     # 私人設定（token 等），不進版控；結構是外層的鏡子
+│   └── config/export.zsh       # 例：私人環境變數
 ├── modules/                    # 強化模組（高內聚、自成一格的功能）
 │   ├── tmux-workflow.zsh       # tmux session 進場/切換/新建流程
 │   ├── history-skip-failed.zsh # 失敗指令不寫入 history
@@ -60,7 +62,8 @@ source ~/.config/vulcanzsh/source.zsh
 - **`config/`** — 設定 shell **基礎行為**的「一般設定」（別名、快捷鍵、補全、環境變數、PATH），彼此低耦合。
 - **`modules/`** — **高內聚、自成一格**的「強化模組」，有自己的邏輯或副作用，抽掉不影響基礎 shell。
 - **`functions/`** — **獨立小工具函式**，一檔一指令、檔名即指令名。新增功能只要丟一個 `functions/xxx.zsh`，`source.zsh` 會自動載入。
-- **`source.zsh`** — 純載入入口，依 `config → functions → modules` 順序 source（`fzf-tab-enhancement.zsh` 已排除）。
+- **`.local/`** — **私人設定**（token、內網位址等），結構是外層的鏡子：`.local/config/`、`.local/functions/`、`.local/modules/` 各自接在同名的外層之後載入，例如私人環境變數放 `.local/config/export.zsh`。目錄內的 `.gitignore` 為 `*`，整個目錄不進版控；新機器上用 `mkdir -p .local && echo '*' > .local/.gitignore` 建立。
+- **`source.zsh`** — 純載入入口，依 `config → functions → modules` 順序 source，每層後接 `.local/` 的同名層（`fzf-tab-enhancement.zsh` 已排除）。
 
 ## 核心功能
 
