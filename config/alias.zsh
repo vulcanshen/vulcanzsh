@@ -1,8 +1,6 @@
 alias clr='clear'
 alias bat='bat --color=always --theme=base16'
 alias k='kubectl'
-alias lzg='lazygit -sm full log'
-alias lzd='lazydocker'
 alias gcl='gitlab-ci-local'
 #alias mtp='multipass'
 alias rlsrc="source $HOME/.zshrc"

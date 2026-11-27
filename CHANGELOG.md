@@ -10,7 +10,7 @@
 - `completion.zsh`：compinit 每日快取，新增 `reloadcomp` 手動重建
 - vi 模式改由 `bindkey.zsh` 的 `bindkey -v` 啟用（原為 `source.zsh` 的 `set -o vi`）
 - 新增函式 `cld`、`cpath`、`preview`（Quick Look）；`chromedev` 由 alias 改為函式；`llv` 支援路徑參數、`-lv` 深度與 tab 補全
-- 新增 alias `trdn`、`gna`（`gitnexus analyze --index-only`）；`lzg` 改為 `lazygit -sm full log`；移除 `opf`
+- 新增 alias `trdn`、`gna`（`gitnexus analyze --index-only`）；移除 `opf`、`lzg`、`lzd`（superfile、lazygit、lazydocker 已移除）
 - 新增 XDG、`HOMEBREW_NO_ASK`、`ECC_GATEGUARD` 環境變數
 - PATH：修正 `~/go/bin` 的 `~` 不展開、加入 GNU make 的 gnubin；coreutils gnubin 改用固定路徑，啟動時不再呼叫 `brew --prefix`
 
