@@ -102,7 +102,7 @@ source ~/.config/vulcanzsh/source.zsh
 | `mtp` | 強制 `TERM=xterm-256color` 的 multipass 包裝 | multipass |
 | `chrome [url]` | 開啟 Google Chrome | macOS |
 | `chromedev [url]` | 開啟 Chrome（停用 web security ＋ 獨立 profile，開發用）| macOS |
-| `cld [目錄] [參數...]` | 不帶參數＝`claude`；帶目錄則切過去（依序找真實路徑、目前位置上層的同名目錄、zoxide 關鍵字）再 `claude -c`，接續該目錄最近一次對話；`-` 開頭的參數原樣交給 `claude` | claude、[zoxide](https://github.com/ajeetdsouza/zoxide) |
+| `cld [名稱] [參數...]` | 不帶參數＝`claude`；名稱和某個 session 的名稱（`/rename` 取的）完全相符時，切到它的目錄再 `claude --resume` 那個 session；否則把名稱當目錄，切過去（依序找真實路徑、目前位置上層的同名目錄、zoxide 關鍵字）再 `claude -c`，接續該目錄最近一次對話；`-` 開頭的參數原樣交給 `claude` | claude、[zoxide](https://github.com/ajeetdsouza/zoxide) |
 | `cpath <檔案或目錄>` | 複製絕對路徑到剪貼簿 | macOS |
 | `preview <檔案/目錄...>` | 用 Quick Look 跳出預覽視窗 | macOS |
 
